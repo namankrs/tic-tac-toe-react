@@ -1,29 +1,75 @@
 import React from "react";
+import Square from "./Square";
+import "./index.css";
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { squares: Array(9).fill(null), xIsNext: true };
+  }
+
+  handleClick(id) {
+    const squares = this.state.squares.slice();
+    if (this.hasWon(squares) || !(squares[id] == null)) return;
+    squares[id] = this.state.xIsNext ? "X" : "O";
+    this.setState({ squares: squares, xIsNext: !this.state.xIsNext });
+  }
+
   renderSquare(id) {
-    return <Square />;
+    return (
+      <Square
+        value={this.state.squares[id]}
+        onClick={() => this.handleClick(id)}
+      />
+    );
+  }
+
+  hasWon(squares) {
+    const winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
+
+    for (let i = 0; i < winningCombinations.length; i++) {
+      const [a, b, c] = winningCombinations[i];
+      if (
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
+      ) {
+        return squares[a];
+      }
+    }
+    return null;
   }
 
   render() {
-    const status = "Next Player:X";
+    let status = `Next Player:${this.state.xIsNext ? "X" : "O"}`;
+    const winner = this.hasWon(this.state.squares);
+    if (winner) status = `${winner} has won the game`;
     return (
-      <div>
+      <div className="rows">
         <div className="status">{status}</div>
         <div className="board-row">
+          {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
-          {this.renderSquare(3)}
         </div>
         <div className="board-row">
+          {this.renderSquare(3)}
           {this.renderSquare(4)}
           {this.renderSquare(5)}
-          {this.renderSquare(6)}
         </div>
         <div className="board-row">
+          {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
-          {this.renderSquare(9)}
         </div>
       </div>
     );

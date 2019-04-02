@@ -12,3 +12,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.game {
+  height: 825px;
+}
+.game-board {
+  height: 100%;
+}
+
+.board-row {
+  display: flex;
+  height: 15%;
+  width: 30%;
+}
+
+.status {
+  height: 3%;
+  width: 10%;
+  margin: 1%;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.square {
+  border: 1px solid black;
+  height: 100%;
+  width: 33%;
+  font-size: 100%;
+}
