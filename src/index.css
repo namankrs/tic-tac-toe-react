@@ -34,7 +34,7 @@ code {
 
 .board-row {
   display: flex;
-  height: 15%;
+  height: 25%;
   width: 30%;
 }
 
